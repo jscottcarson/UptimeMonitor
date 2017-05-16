@@ -1,0 +1,10 @@
+#!/usr/bin/expect
+set f [lindex $argv 0]
+spawn  su -c "nsupdate -g -d" igscc-jenkinsdns
+expect "Password: "
+send "NuHFfqiJlvVzsOKHgeV9\r"
+expect ">"
+send "update add jenkins.usgs.chs.ead 150 cname $f\r"
+send "send\r"
+send "\r"
+expect eof
