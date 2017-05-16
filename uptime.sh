@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # check for exit code from Jenkins master
-nc -vz 10.12.1.6 445 &> /dev/null
+nc -vz <ip> 445 &> /dev/null
 
 # If exit code is 0 do nothing
 if [ $? -eq 0 ]
@@ -10,7 +10,7 @@ then
 else
 
 #If exit code is not 0 terminate the master
-aws ec2 stop-instances --region us-west-2 --instance-ids i-067045a6f81cd37e2
+aws ec2 stop-instances --region us-west-2 --instance-ids
 
 # Spin up new instance from last successful AMI of the master and output the new instance ID to variable
 instance_id=$(aws ec2 run-instances --region us-west-2 --key ec2-test --instance-type m3.xlarge --image-id `cat /home/ec2-user/cron-jobs/Jenkins-Auto-AMI/lastami.txt`  --se$
