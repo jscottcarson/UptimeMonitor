@@ -19,7 +19,7 @@ echo Newinstance_id=$instance_id
 echo $instance_id > instanceid
 
 # Pause while the new instance is in a pending state
-while state=$(aws ec2 describe-instances --region us-west-2 --instance-ids $instance_id --output text --query 'Reservations[*].Instances[*].State.Name'); test "$state" = "p$
+while state=$(aws ec2 describe-instances --region us-west-2 --instance-ids $instance_id --output text --query 'Reservations[*].Instances[*].State.Name'); test "$state" = "pending"
   sleep 1; echo -n '.'
 done;
 
